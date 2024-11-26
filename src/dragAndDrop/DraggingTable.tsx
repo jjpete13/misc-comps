@@ -7,26 +7,24 @@ interface DraggingTableProps {
   updateRows: (newRows: any[]) => void
 }
 export default function DraggingTable({rows, updateRows}: DraggingTableProps) {
-  // const rows = ["row1", "row2", "row3", "row4", "row5", "row6", "row7"];
   const partialId = "partialId";
   const containerId = "containerId";
   const cloneId = "cloneId";
 
-  const style = {
-    position: "absolute" as const,
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    minWidth: "300px",
+  const tableStyle = {
+    minWidth: "100px",
+    width: "fit-content",
     border: "1px solid black",
   };
 
-// TODO: table cell spacing collapses when dragging
+
   return (
-    <div style={style}>
-      <table id={containerId} style={{width: "100%", borderCollapse: "collapse"}}>
+    <>
+    <h2>Drag and Drop Table Rows</h2>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <table style={tableStyle as React.CSSProperties}>
         <DragContextProvider>
-          <tbody>
+          <tbody id={containerId} style={{ width: "100%" }}>
             {rows.map((row, index) => {
               return (
                 <DraggableTableRow
@@ -38,7 +36,7 @@ export default function DraggingTable({rows, updateRows}: DraggingTableProps) {
                   partialId={partialId}
                   updateRows={updateRows}
                 >
-                  <td>
+                  <td style={{ minWidth: "100px", textAlign: "center" }}>
                     <p>{row}</p>
                   </td>
                 </DraggableTableRow>
@@ -48,5 +46,7 @@ export default function DraggingTable({rows, updateRows}: DraggingTableProps) {
         </DragContextProvider>
       </table>
     </div>
+    </>
+    
   );
 }

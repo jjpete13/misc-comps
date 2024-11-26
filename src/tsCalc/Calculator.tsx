@@ -23,6 +23,7 @@ export class Calculator {
   }
 }
 
+// TODO: calculator can't handle decimals -- probably going to scrap the calculator when I have something better to replace it with
 export default function CalculatorComponent() {
 const [screenValue, setScreenValue] = useState('0');
 const num1: MutableRefObject<number> = useRef(10);
@@ -49,8 +50,11 @@ const calcStyle = {
 const handleClick = (value: string) => {
   const checkNumber = value.match(/^[0-9]$/);
   const checkCalcType =  value === 'add' || value === 'subtract' || value === 'multiply' || value === 'divide';
-  if (checkNumber) {
-    setScreenValue(screenValue === '0' ? value : screenValue + value);
+  if (screenValue === '0') {
+    if(!checkNumber) return;
+    setScreenValue(value);
+  } else {
+    setScreenValue(screenValue + value);
   }
   if (checkCalcType) {
     if (screenValue === '0') return
@@ -61,7 +65,6 @@ const handleClick = (value: string) => {
   if (value === '=') {
     let afterCalc = screenValue.split(translateCalcType[calcType.current as keyof typeof translateCalcType]);
     num2.current = parseInt(afterCalc[1]);
-    console.log(afterCalc)
     setScreenValue(calculator.calculate(num1.current, num2.current, calcType.current));
   }
   // setScreenValue(screenValue === '0' ? value : screenValue + value);

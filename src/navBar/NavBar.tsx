@@ -2,14 +2,14 @@ import { SetStateAction } from "react"
 import "./navBar.css"
 
 interface NavBarProps {
-  updateComponent: (component: SetStateAction<"dragAndDrop" | "tsCalc">) => void;
+  updateComponent: (component: SetStateAction<"dragAndDrop" | "tsCalc" | "toast">) => void;
 }
 
 export default function NavBar( {updateComponent}: NavBarProps) {
 
   type NavButtonProps = {
     text: string;
-    component: "dragAndDrop" | "tsCalc";
+    component: "dragAndDrop" | "tsCalc" | "toast";
   };
   const NavButton = ({ text, component }: NavButtonProps) => {
     return (
@@ -22,6 +22,7 @@ export default function NavBar( {updateComponent}: NavBarProps) {
     <nav className="navBar">
       <NavButton text="Draggable Rows" component="dragAndDrop" />
       <NavButton text="Calculator" component="tsCalc" />
+      <NavButton text="Toast" component="toast" />
     </nav>
   );
 }

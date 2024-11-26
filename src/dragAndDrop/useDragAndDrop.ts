@@ -93,6 +93,7 @@ function useDragAndDrop() {
       left: `${rect.left}px`,
     };
 
+
     Object.assign((clone as HTMLElement).style, cloneStyle);
     (clone as HTMLElement).id = cloneId;
     document.body.appendChild(clone);
@@ -100,7 +101,7 @@ function useDragAndDrop() {
     (transparentClone as HTMLElement).style.opacity = "0";
     event.dataTransfer.setDragImage((clone as HTMLElement), 0, 0);
     event.dataTransfer.setDragImage(transparentClone, 0, 0);
-    (startY as React.MutableRefObject<number>).current = rect.top;
+    (startY as React.MutableRefObject<number>).current = rect.top + rect.height / 2;
     (tempY as React.MutableRefObject<number>).current = rect.top;
     (startX as React.MutableRefObject<number>).current = rect.left + rect.width / 2;
     (tempX as React.MutableRefObject<number>).current = rect.left + rect.width / 2;
@@ -242,11 +243,12 @@ function useDragAndDrop() {
   }: verticalDragProps) => {
     const shiftY = event.clientY - (startY as React.MutableRefObject<number>).current;
     const currentY = event.clientY;
+    const height = clone.offsetHeight /2
 
 
     if (
       container.top < currentY &&
-      currentY < container.top + container.height
+      currentY < container.bottom - height
     ) {
       clone.style.transform = `translateY(${shiftY}px)`;
     }
