@@ -47,6 +47,12 @@ const calcStyle = {
   borderRadius: '5px',
   backgroundColor: '#f2f2f2'
 }
+
+const buttonStyle = {
+  backgroundColor: '#fff',
+  color: '#000'
+}
+
 const handleClick = (value: string) => {
   const checkNumber = value.match(/^[0-9]$/);
   const checkCalcType =  value === 'add' || value === 'subtract' || value === 'multiply' || value === 'divide';
@@ -76,31 +82,31 @@ const handleClick = (value: string) => {
       <table style={{width: '100%', borderCollapse: 'collapse'}}>
         <tbody>
         <tr>
-            <td><button onClick={() => handleClick('7')}>7</button></td>
-            <td><button onClick={() => handleClick('8')}>8</button></td>
-            <td><button onClick={() => handleClick('9')}>9</button></td>
-            <td><button onClick={() => handleClick('divide')}>/</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('7')}>7</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('8')}>8</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('9')}>9</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('divide')}>/</button></td>
           </tr>
           <tr>
-            <td><button onClick={() => handleClick('4')}>4</button></td>
-            <td><button onClick={() => handleClick('5')}>5</button></td>
-            <td><button onClick={() => handleClick('6')}>6</button></td>
-            <td><button onClick={() => handleClick('multiply')}>*</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('4')}>4</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('5')}>5</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('6')}>6</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('multiply')}>*</button></td>
           </tr>
           <tr>
-            <td><button onClick={() => handleClick('1')}>1</button></td>
-            <td><button onClick={() => handleClick('2')}>2</button></td>
-            <td><button onClick={() => handleClick('3')}>3</button></td>
-            <td><button onClick={() => handleClick('subtract')}>-</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('1')}>1</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('2')}>2</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('3')}>3</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('subtract')}>-</button></td>
           </tr>
           <tr>
-            <td><button onClick={() => handleClick('0')}>0</button></td>
-            <td><button onClick={() => handleClick('.')}>.</button></td>
-            <td><button onClick={() => handleClick('=')}>=</button></td>
-            <td><button onClick={() => handleClick('add')}>+</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('0')}>0</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('.')}>.</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('=')}>=</button></td>
+            <td><button style={buttonStyle} onClick={() => handleClick('add')}>+</button></td>
           </tr>
           <tr>
-            <td colSpan={4}><button onClick={() => setScreenValue('0')}>Clear</button></td>
+            <td colSpan={4}><button style={buttonStyle} onClick={() => setScreenValue('0')}>Clear</button></td>
           </tr>
         </tbody>
       </table>

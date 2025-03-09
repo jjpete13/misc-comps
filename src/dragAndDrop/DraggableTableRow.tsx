@@ -84,7 +84,7 @@ updateRows && updateRows(data && updateData(data) || []);
 
   return (
     <tr
-      style={{ cursor: "pointer"  }}
+      style={{ cursor: "pointer", backgroundColor: 'inherit'  }}
       key={`${partialId}_${index}`}
       id={`${partialId}_${index}`}
       draggable="false"

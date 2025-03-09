@@ -23,7 +23,7 @@ function useDragAndDrop() {
     const rect = row.getBoundingClientRect();
     const verticalCenter = rect.top + rect.height / 2;
     const horizontalCenter = rect.left + rect.width / 2;
-    const position = { x: horizontalCenter, y: verticalCenter };
+    const position = { x: horizontalCenter, y: verticalCenter, shifted: false };
     listItemPositions.current[index] = position;
   };
 
@@ -77,13 +77,13 @@ function useDragAndDrop() {
     (tempDragItem.current as number) = (index);
     const rect = draggingElement.current.getBoundingClientRect();
     const clone = draggingElement.current.cloneNode(true);
-    const background = !dragEntireColumn ? "white" : "";
+    // const background = !dragEntireColumn ? "white" : "";
     draggingElement.current.style.opacity = "0";
 
 
     const cloneStyle = {
       zIndex: "9999",
-      backgroundColor: background,
+      backgroundColor: 'inherit',
       position: "absolute",
       pointerEvents: "none",
       opacity: "1",
@@ -116,6 +116,8 @@ function useDragAndDrop() {
         (cell as HTMLElement).style.width = `${rect.width}px`;
       });
     }
+
+    // console.log(listItemPositions.current);
   };
 
   interface horizontalDragProps {
@@ -259,16 +261,16 @@ function useDragAndDrop() {
 
     if (isScrolling.current) return;
     Object.entries(listItemPositions.current).forEach(([key, value]) => {
-      if (+key === tempDragItem.current) return;
+      if (parseInt(key) === tempDragItem.current && !value.shifted) return;
 
       if (
         ((tempY as React.MutableRefObject<number>).current > value.y && currentY > value.y) ||
         ((tempY as React.MutableRefObject<number>).current < value.y && currentY < value.y)
-      )
+      ) 
         return;
 
       const shiftUp = (tempY as React.MutableRefObject<number>).current < value.y && currentY > value.y;
-      const index = +key;
+      const index = parseInt(key);
       const notShifted =
         ((dragItem as React.MutableRefObject<number>).current < index && (tempDragItem as React.MutableRefObject<number>).current < index) ||
         ((dragItem as React.MutableRefObject<number>).current > index && (tempDragItem as React.MutableRefObject<number>).current > index);
@@ -297,10 +299,10 @@ function useDragAndDrop() {
       }
       if (!notShifted) {
         shiftUp
-          ? ((tempDragItem as React.MutableRefObject<number>).current = +key + 1)
-          : ((tempDragItem as React.MutableRefObject<number>).current = +key - 1);
+          ? ((tempDragItem as React.MutableRefObject<number>).current = parseInt(key) + 1)
+          : ((tempDragItem as React.MutableRefObject<number>).current = parseInt(key) - 1);
       } else {
-        (tempDragItem as React.MutableRefObject<number>).current = +key;
+        (tempDragItem as React.MutableRefObject<number>).current = parseInt(key);
       }
       (tempY as React.MutableRefObject<number>).current = currentY;
     });

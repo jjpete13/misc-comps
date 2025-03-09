@@ -1,0 +1,51 @@
+.card {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 0.5px solid #858585;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 0px;
+  margin-bottom: 20px;
+  min-width: 300px;
+  max-width: 400px;
+  min-height: 300px;
+}
+
+.card-tabs {
+  width: 100%;
+  display: flex;
+  margin: 0 0 10px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  * + button {
+    border-left: 1px solid #858585;
+  }
+
+
+  button {
+    background-color: #c2c2c2;
+    border-radius: 0;
+    width:max-content;
+    width: fit-content;
+    min-width: 80px;
+
+    &.active {
+      border-top: 3px solid #4ea1c4;
+      background-color: #fff;
+    }
+  }
+
+  .extra-tabs {
+    display: none;
+
+    &.active {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 10px;
+    left: 1opx;
+    z-index: 9999;
+    }
+  }
+
+}
