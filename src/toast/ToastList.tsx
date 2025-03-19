@@ -1,6 +1,6 @@
-import { Box, Slide, Alert, AlertColor } from "@mui/material";
 import React from "react";
 import { ToastState } from "./toastObserver";
+import './toast.css'
 
 const styles = {
   position: "fixed",
@@ -13,24 +13,26 @@ const styles = {
   overflowX: "hidden",
   overflowY: "auto",
   scrollbarWidth: "none",
+  transition: "all 0.5s ease-in-out",
 };
 
-const Toast = ({ message, severity, onClose }: { message: string, severity: AlertColor, onClose: () => void }) => {
+type severity = "success" | "error" | "info" | "warning";
+
+const Toast = ({ message, severity, onClose }: { message: string, severity: severity, onClose: () => void }) => {
+
   return (
-    <Slide in={true} direction="left">
-      <Box>
-        <Alert severity={severity} variant="filled" onClose={onClose} sx={{ margin: "5px" }}>
-          <>{message}</>
-        </Alert>
-      </Box>
-    </Slide>
-  );
-};
+      <div id="toast" className={`toast ${severity}`}>
+        <p>{message}</p>
+        <button onClick={onClose} style={{border: "none", background: "none", cursor: "pointer", color: 'inherit'}}>X</button>
+      </div>
+  )
+}
 
 const ToastList = () => {
   const [toastList, setToastList] = React.useState<any[]>([]);
   const removeToast = (id: any) => {
     setToastList(toastList.filter((toast: any) => toast.id !== id));
+    ToastState.removeToast(id);
   };
   React.useEffect(() => {
     return ToastState?.subscribe(() => {

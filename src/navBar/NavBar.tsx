@@ -3,14 +3,14 @@ import "./navBar.css"
 
 
 interface NavBarProps {
-  updateComponent: (component: SetStateAction<"dragAndDrop" | "tsCalc" | "toast" | "login" | "tabs">) => void;
+  updateComponent: (component: SetStateAction<"dragAndDrop" | "toast" | "login" | "tabs">) => void;
 }
 
 export default function NavBar( {updateComponent}: NavBarProps) {
 
   type NavButtonProps = {
     text: string;
-    component: "dragAndDrop" | "tsCalc" | "toast" | "login" | "tabs";
+    component: "dragAndDrop" | "toast" | "login" | "tabs";
   };
   const NavButton = ({ text, component }: NavButtonProps) => {
     return (
@@ -22,7 +22,6 @@ export default function NavBar( {updateComponent}: NavBarProps) {
   return (
     <nav className="navBar">
       <NavButton text="Draggable Rows" component="dragAndDrop" />
-      <NavButton text="Calculator" component="tsCalc" />
       <NavButton text="Toast" component="toast" />
       <NavButton text="Login" component="login" />
       <NavButton text="card w/ tabs" component="tabs" />

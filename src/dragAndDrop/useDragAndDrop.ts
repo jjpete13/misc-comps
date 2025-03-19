@@ -13,7 +13,7 @@ function useDragAndDrop() {
     scrollY,
     startX,
     tempX,
-    scrollX,
+    // scrollX,
     isScrolling,
   } = context!;
 
@@ -117,7 +117,6 @@ function useDragAndDrop() {
       });
     }
 
-    // console.log(listItemPositions.current);
   };
 
   interface horizontalDragProps {

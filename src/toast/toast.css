@@ -1,0 +1,42 @@
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.toast {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 250px;
+  min-height: 40px;
+  height: 'fit-content';
+  border-radius: 10px;
+  padding: 0 5px;
+  color: white;
+  text-wrap: wrap;
+  animation: slide-in 0.3s;
+
+  &.success {
+    background-color: rgb(22 169 29);
+  }
+  &.error {
+    background-color: rgb(235 25 25);
+  }
+  &.info {
+    background-color: rgb(2, 136, 209);
+  }
+  &.warning {
+    background-color: rgb(255, 135, 23);
+  }
+
+  p {
+    margin: 0;
+  }
+
+}
