@@ -1,14 +1,13 @@
-import { AlertColor } from "@mui/material"
 import { toast } from "./toastObserver";
 
 
 export default function DisplayToast() {
 
   const buttonColors = {
-    success: 'rgb(46, 125, 50)',
-    error: 'rgb(211, 47, 47)',
+    success: 'rgb(22 169 29)',
+    error: 'rgb(235 25 25)',
     info: 'rgb(2, 136, 209)',
-    warning: 'rgb(237, 108, 2)',
+    warning: 'rgb(255, 135, 23)',
   }
 
   const buttonStyle = ({ backgroundColor }: { backgroundColor: string }) => {
@@ -24,7 +23,7 @@ export default function DisplayToast() {
     
   };
 
-  const handleClick = (severity: AlertColor) => {
+  const handleClick = (severity: "success" | "error" | "info" | "warning") => {
     toast[severity](`This is a ${severity} toast`);
   }
   return (
