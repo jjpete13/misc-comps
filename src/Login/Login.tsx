@@ -1,11 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./Login.css";
 import { toast } from "../toast/toastObserver";
 
-// TODO: add rgb border and button to trigger it
 export default function Login() {
   const userRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
+  const [colorful, setColorful] = useState<boolean>(true);
 
   const handleOnBlur = (id: string, ref: React.RefObject<HTMLInputElement>) => {
     if (ref.current?.value !== null && ref.current?.value !== "") {
@@ -19,9 +19,18 @@ export default function Login() {
     }
   }
 
+  const handleSubmit = () => {
+    const hasUser = userRef.current?.value !== null && userRef.current?.value !== "";
+    const hasPass = passRef.current?.value !== null && passRef.current?.value !== "";
+    if (hasUser && hasPass) {
+      return toast.success("Login successful");
+    }
+    return toast.error("Missing username or password");
+  }
+
   return (
-    <div className="login">
-      <h1>Login</h1>
+    <div className="login" id={colorful ? "colorful" : ""}>
+      <h1 style={{color: colorful ? "#00ffea" : "", cursor: "pointer"}} onClick={() => setColorful(!colorful)}>Login</h1>
       <div className="input-group" id='user'>
         <input
           type="text"
@@ -40,7 +49,7 @@ export default function Login() {
           />
         <label htmlFor="password" id="password-label">Password</label>
       </div>
-      <button onClick={() => toast.success("Login successful")}>Login</button>
+      <button onClick={handleSubmit}>Login</button>
     </div>
   )
 }

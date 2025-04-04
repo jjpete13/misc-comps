@@ -1,4 +1,5 @@
 .login {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,15 +11,47 @@
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
   padding: 20px;
 
+  > .input-group:first-child {
+    margin-top: auto;
+  }
 }
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+#colorful::after, #colorful::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  padding: 5px;
+  border-radius: 10px;
+  background-image: conic-gradient(from var(--angle), #fa4747, #60ee60, #00ffea, #fc5df7, #fa4747);
+  animation: 3s spin linear infinite;
+}
+#colorful::before {
+  filter: blur(1.5em);
+  opacity: 0.8;
+}
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
 .input-group {
   position: relative;
   margin-bottom: 20px;
   font-size: 14px; 
 }
-#user {
-    margin-top: auto
-  }
 
 .input-group input {
   padding: 10px;
