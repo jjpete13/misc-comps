@@ -1,77 +1,83 @@
 let toastCounter = 0;
 
+type Toast = {
+	message: string;
+	severity: string;
+	id: number;
+};
+
 class Observer {
-  subscribers: any[];
-  toasts: any[];
+	subscribers: Array<() => void>;
+	toasts: Toast[];
 
-  constructor() {
-    this.subscribers = [];
-    this.toasts = [];
-  }
+	constructor() {
+		this.subscribers = [];
+		this.toasts = [];
+	}
 
-  subscribe = (subscriber: any) => {
-    this.subscribers.push(subscriber);
+	subscribe = (subscriber: () => void) => {
+		this.subscribers.push(subscriber);
 
-    return () => {
-      const index = this.subscribers.indexOf(subscriber);
-      this.subscribers.splice(index, 1);
-    };
-  };
+		return () => {
+			const index = this.subscribers.indexOf(subscriber);
+			this.subscribers.splice(index, 1);
+		};
+	};
 
-  publish = () => {
-    this.subscribers.forEach((subscriber) => {
-      subscriber();
-    });
-  };
+	publish = () => {
+		for (const subscriber of this.subscribers) {
+			subscriber();
+		}
+	};
 
-  addToast = (toast: any) => {
-    this.toasts = [toast, ...this.toasts];
-    this.publish();
+	addToast = (toast: Toast) => {
+		this.toasts = [toast, ...this.toasts];
+		this.publish();
 
-    setTimeout(() => {
-      this.removeToast(toast.id);
-      this.publish();
-    }, 5000);
-  };
+		setTimeout(() => {
+			this.removeToast(toast.id);
+			this.publish();
+		}, 5000);
+	};
 
-  removeToast = (id: any) => {
-    this.toasts = this.toasts.filter((toast) => toast.id !== id);
-  };
+	removeToast = (id: number) => {
+		this.toasts = this.toasts.filter((toast) => toast.id !== id);
+	};
 
-  create = (toast: any) => {
-    const { message, severity } = toast;
-    const id = toastCounter++;
-    this.addToast({ message, severity, id });
-  };
+	create = (toast: { message: string; severity: string }) => {
+		const { message, severity } = toast;
+		const id = toastCounter++;
+		this.addToast({ message, severity, id });
+	};
 
-  success = (message: any) => {
-    this.create({ message, severity: "success" });
-  };
+	success = (message: string) => {
+		this.create({ message, severity: "success" });
+	};
 
-  error = (message: any) => {
-    this.create({ message, severity: "error" });
-  };
+	error = (message: string) => {
+		this.create({ message, severity: "error" });
+	};
 
-  info = (message: any) => {
-    this.create({ message, severity: "info" });
-  };
+	info = (message: string) => {
+		this.create({ message, severity: "info" });
+	};
 
-  warning = (message: any) => {
-    this.create({ message, severity: "warning" });
-  };
+	warning = (message: string) => {
+		this.create({ message, severity: "warning" });
+	};
 }
 
 export const ToastState = new Observer();
 
-const showToast = (message: any, severity: string) => {
-  const id = toastCounter++;
+const showToast = (message: string, severity: string) => {
+	const id = toastCounter++;
 
-  ToastState.addToast({ message: message, severity: severity, id });
+	ToastState.addToast({ message: message, severity: severity, id });
 };
 
 export const toast = Object.assign(showToast, {
-  success: ToastState.success,
-  error: ToastState.error,
-  info: ToastState.info,
-  warning: ToastState.warning,
+	success: ToastState.success,
+	error: ToastState.error,
+	info: ToastState.info,
+	warning: ToastState.warning,
 });

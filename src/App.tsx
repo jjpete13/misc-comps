@@ -1,12 +1,8 @@
-import './App.css'
-import Components from './Components';
-
-
+import "./App.css";
+import Components from "./Components";
 
 function App() {
-return (
-  <Components />
-)
+	return <Components />;
 }
 
-export default App
+export default App;

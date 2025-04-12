@@ -1,25 +1,25 @@
 .navBar {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #333;
-  color: #fff;
-  z-index: 5000;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: #333;
+	color: #fff;
+	z-index: 5000;
 }
 
 .navBar button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  background-color: #fff;
-  color: #333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:active {
-    background-color: #af1f1f;
-  }
+	margin: 0 10px;
+	padding: 10px 20px;
+	background-color: #fff;
+	color: #333;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	&:active {
+		background-color: #af1f1f;
+	}
 }
