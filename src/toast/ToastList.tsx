@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastState } from "./toastObserver";
+import { Toast, ToastState, Severity } from "./toastObserver";
 import "./toast.css";
 
 const styles = {
@@ -16,13 +16,11 @@ const styles = {
 	transition: "all 0.5s ease-in-out",
 };
 
-type severity = "success" | "error" | "info" | "warning";
-
-const Toast = ({
+const ToastComponent = ({
 	message,
 	severity,
 	onClose,
-}: { message: string; severity: severity; onClose: () => void }) => {
+}: { message: string; severity: Severity; onClose: () => void }) => {
 	return (
 		<div id="toast" className={`toast ${severity}`}>
 			<p>{message}</p>
@@ -43,9 +41,9 @@ const Toast = ({
 };
 
 const ToastList = () => {
-	const [toastList, setToastList] = React.useState<any[]>([]);
-	const removeToast = (id: any) => {
-		setToastList(toastList.filter((toast: any) => toast.id !== id));
+	const [toastList, setToastList] = React.useState<Toast[]>([]);
+	const removeToast = (id: number) => {
+		setToastList(toastList.filter((toast: Toast) => toast.id !== id));
 		ToastState.removeToast(id);
 	};
 	React.useEffect(() => {
@@ -58,10 +56,10 @@ const ToastList = () => {
 		toastList.length > 0 && (
 			<div style={styles as React.CSSProperties}>
 				{toastList.map((toast) => (
-					<Toast
+					<ToastComponent
 						key={toast.id}
 						message={toast.message}
-						severity={toast.severity}
+						severity={toast.severity as Severity}
 						onClose={() => removeToast(toast.id)}
 					/>
 				))}

@@ -1,5 +1,3 @@
-// dragAndDrop.d.ts
-
 export function enableDrag(id: string): void;
 export function disableDrag(id: string): void;
 

@@ -1,10 +1,12 @@
 let toastCounter = 0;
 
-type Toast = {
+export type Toast = {
 	message: string;
 	severity: string;
 	id: number;
 };
+
+export type Severity = "success" | "error" | "info" | "warning";
 
 class Observer {
 	subscribers: Array<() => void>;
@@ -44,7 +46,7 @@ class Observer {
 		this.toasts = this.toasts.filter((toast) => toast.id !== id);
 	};
 
-	create = (toast: { message: string; severity: string }) => {
+	create = (toast: { message: string; severity: Severity }) => {
 		const { message, severity } = toast;
 		const id = toastCounter++;
 		this.addToast({ message, severity, id });
@@ -69,7 +71,7 @@ class Observer {
 
 export const ToastState = new Observer();
 
-const showToast = (message: string, severity: string) => {
+const showToast = (message: string, severity: Severity) => {
 	const id = toastCounter++;
 
 	ToastState.addToast({ message: message, severity: severity, id });
